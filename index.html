@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ahmad Rafi Rizqullah — Data Analyst</title>
+
+  <!-- Minimal, modern font via Google Fonts (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #0f172a;
+      --accent: #0ea5e9;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 14px;
+      --shadow: 0 8px 30px rgba(15,23,42,0.06);
+    }
+    [data-theme="dark"]{
+      --bg: #071023;
+      --card: #07172a;
+      --muted: #94a3b8;
+      --text: #e6eef9;
+      --accent: #60a5fa;
+      --glass: rgba(255,255,255,0.04);
+      --shadow: 0 10px 30px rgba(2,6,23,0.7);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), #ffffff00 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      transition:background 300ms ease, color 300ms ease;
+    }
+
+    /* Layout */
+    .container{max-width:1100px;margin:0 auto;padding:36px 20px 80px}
+
+    /* Header / Nav */
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{
+      width:64px;height:64px;border-radius:12px;overflow:hidden;flex:0 0 64px;
+      box-shadow:var(--shadow);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .name{font-weight:700;font-size:1.05rem}
+    .role{font-size:0.88rem;color:var(--muted);margin-top:2px}
+
+    nav .links{display:flex;gap:12px;align-items:center}
+    nav a{font-size:0.95rem;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
+    nav a:hover{color:var(--text);background:var(--glass)}
+
+    .controls{display:flex;gap:8px;align-items:center}
+    .icon-btn{
+      display:inline-grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--card);box-shadow:var(--shadow);cursor:pointer;border:1px solid rgba(0,0,0,0.03)
+    }
+    .primary-btn{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#0aa7d7);color:white;font-weight:600;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(14,165,233,0.12)
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:24px;
+      display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:center;
+    }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
+      backdrop-filter: blur(8px); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow); border:1px solid var(--glass);
+    }
+    [data-theme="dark"] .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
+
+    .headline{font-size:1.7rem;font-weight:800;letter-spacing:-0.02em}
+    .sub{
+      color:var(--muted);
+      margin-top:10px;font-size:1rem
+    }
+    .hero-actions{margin-top:18px;display:flex;gap:12px;align-items:center}
+
+    .profile-stats{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      background:var(--card);padding:18px;border-radius:12px;border:1px solid var(--glass);box-shadow:var(--shadow)
+    }
+    .stat{display:flex;flex-direction:column;align-items:flex-start}
+    .stat .num{font-weight:700;font-size:1.15rem}
+    .stat .lbl{font-size:0.83rem;color:var(--muted)}
+
+    /* Main content */
+    main{margin-top:32px;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+    .card{background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass);box-shadow:var(--shadow)}
+    h2{margin:0 0 12px 0;font-size:1.08rem}
+
+    /* Projects grid */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .project{
+      padding:16px;border-radius:12px;background:linear-gradient(180deg, transparent, rgba(0,0,0,0.01));transition:transform 220ms cubic-bezier(.22,.9,.35,1), box-shadow 220ms;
+      border:1px solid rgba(0,0,0,0.03);
+    }
+    .project:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(2,6,23,0.08)}
+    .project h3{margin:0 0 6px 0;font-size:1rem}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag{font-size:0.78rem;padding:6px 8px;border-radius:9px;background:var(--glass);color:var(--muted)}
+    .project .meta{font-size:0.87rem;color:var(--muted);margin-top:8px}
+
+    /* Right column - side */
+    .side .mini-card{display:flex;flex-direction:column;gap:12px}
+    .contact-row{display:flex;flex-direction:column;gap:8px}
+    .socials{display:flex;gap:8px}
+
+    /* Modal (dashboard demo) */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .modal{width:100%;max-width:820px;background:var(--card);border-radius:14px;padding:18px;border:1px solid var(--glass);box-shadow:0 30px 80px rgba(2,6,23,0.5)}
+    .modal header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .close{background:transparent;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted)}
+
+    /* Footer */
+    footer{margin-top:40px;padding-top:22px;border-top:1px dashed var(--glass);color:var(--muted);text-align:center;font-size:0.92rem}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      main{grid-template-columns:1fr}
+      .projects{grid-template-columns:1fr}
+      nav .links{display:none}
+    }
+
+    /* Fade-in animation util */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity 520ms ease, transform 520ms ease}
+    .reveal.visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="avatar" aria-hidden="true">
+          <!-- replace photo with your own -->
+          <img src="assets/images/foto_rafi.jpeg" alt="Ahmad Rafi Rizqullah">
+        </div>
+        <div>
+          <div class="name">Ahmad Rafi Rizqullah</div>
+          <div class="role">Data Analyst — Insight • Visualization • Decision Support</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="links">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+
+      <div class="controls">
+        <button class="icon-btn" id="themeToggle" title="Toggle light/dark" aria-label="Toggle theme">🌗</button>
+        <a href="/cv/Ahmad_Rafi_Rizqullah_CV.pdf" class="primary-btn" download>
+          <!-- download attribute will prompt browser to download if file exists -->
+          Download CV
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card reveal" data-reveal>
+        <div class="headline">Data-driven decisions, presented clearly.</div>
+        <div class="sub">I help teams uncover growth opportunities using clean analysis, robust models, and polished dashboards. Specialties: SQL pipelines, Python analytics, dashboard design (Power BI / Tableau).</div>
+
+        <div class="hero-actions">
+          <button id="openDemo" class="primary-btn" aria-haspopup="dialog">View Dashboard Demo</button>
+          <a href="#projects" class="icon-btn" title="See projects" aria-label="See projects">📂</a>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="profile-stats">
+          <div class="stat">
+            <div class="num">14</div>
+            <div class="lbl">Projects</div>
+          </div>
+          <div class="stat">
+            <div class="num">6</div>
+            <div class="lbl">Dashboards</div>
+          </div>
+          <div class="stat">
+            <div class="num">4</div>
+            <div class="lbl">Certifications</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card profile-stats reveal" data-reveal>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="flex:1">
+            <div style="font-weight:700">Available for collaboration</div>
+            <div style="color:var(--muted);margin-top:6px">Open to freelance & full-time roles</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="contact-row">
+          <div style="display:flex;gap:8px" class="socials">
+            <a class="icon-btn" href="https://github.com/" target="_blank" title="GitHub">GH</a>
+            <a class="icon-btn" href="https://www.linkedin.com/" target="_blank" title="LinkedIn">in</a>
+            <a class="icon-btn" href="mailto:authenticrafi@gmail.com" title="Email">✉️</a>
+          </div>
+
+          <div style="display:flex;gap:8px">
+            <a href="mailto:authenticrafi@gmail.com.com" class="primary-btn" style="flex:1;justify-content:center">Contact</a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Main content -->
+    <main>
+      <!-- Left column -->
+      <section>
+        <div class="card reveal" data-reveal id="about">
+          <h2>About</h2>
+          <p style="color:var(--muted);margin-top:8px">
+            Saya Ahmad Rafi Rizqullah — Data Analyst yang fokus pada pengolahan data akhir-ke-akhir, visualisasi yang komunikatif, dan analisis yang dapat ditindaklanjuti.
+            Saya menggabungkan praktik engineering data, statistik, dan desain visual untuk membantu pemangku kepentingan membuat keputusan berbasis bukti.
+          </p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">Tableau</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">ETL</span>
+          </div>
+        </div>
+
+        <div class="card reveal" data-reveal style="margin-top:16px" id="projects">
+          <h2>Selected Projects</h2>
+          <div class="projects" style="margin-top:12px">
+            <article class="project">
+              <h3>Customer Churn Prediction</h3>
+              <div class="meta">End-to-end modeling pipeline using Python & XGBoost. Improved target recall and proposed retention actions.</div>
+              <div class="tags"><span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">ML</span></div>
+            </article>
+
+            <article class="project">
+              <h3>Retail Sales Dashboard</h3>
+              <div class="meta">Interactive Power BI dashboard showing sales, margin, and inventory KPIs across regions.</div>
+              <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Dashboard</span></div>
+            </article>
+
+            <article class="project">
+              <h3>Web A/B Experiment</h3>
+              <div class="meta">Statistical analysis and experiment reporting leading to UX changes and +3.2% conversion.</div>
+              <div class="tags"><span class="tag">Statistics</span><span class="tag">Experiment</span></div>
+            </article>
+
+            <article class="project">
+              <h3>Customer Segmentation</h3>
+              <div class="meta">K-means segmentation with business-aligned personas and targeted marketing suggestions.</div>
+              <div class="tags"><span class="tag">Clustering</span><span class="tag">SQL</span></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="card reveal" data-reveal style="margin-top:16px" id="skills">
+          <h2>Tools & Workflow</h2>
+          <ul style="color:var(--muted);margin-top:8px;line-height:1.9">
+            <li><strong>Data Engineering:</strong> SQL, Airflow basics, ETL best practices</li>
+            <li><strong>Analysis / Modeling:</strong> Python, Pandas, scikit-learn, XGBoost</li>
+            <li><strong>Visualization:</strong> Power BI, Tableau, matplotlib / plotly</li>
+            <li><strong>Soft skills:</strong> Stakeholder communication, storytelling, reproducible notebooks</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Right column -->
+      <aside class="side">
+        <div class="card mini-card reveal" data-reveal>
+          <h2>Quick Contact</h2>
+          <div style="font-size:0.95rem;color:var(--muted)">Email</div>
+          <div style="font-weight:700">authenticrafi@gmail.com</div>
+          <div style="height:8px"></div>
+          <div style="font-size:0.95rem;color:var(--muted)">Location</div>
+          <div style="font-weight:700">Tangerang, Indonesia</div>
+        </div>
+
+        <div class="card mini-card reveal" data-reveal style="margin-top:16px">
+          <h2>Mini Dashboard</h2>
+          <div style="color:var(--muted);font-size:0.92rem;margin-bottom:8px">Monthly active users (preview)</div>
+          <!-- small inline canvas chart -->
+          <canvas id="miniChart" width="320" height="160" style="width:100%;height:120px;border-radius:8px"></canvas>
+
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button id="openDemo2" class="primary-btn" style="flex:1">Open full demo</button>
+            <a href="#" class="icon-btn" title="Export">⬇️</a>
+          </div>
+        </div>
+
+        <div class="card mini-card reveal" data-reveal style="margin-top:16px">
+          <h2>Availability</h2>
+          <div style="color:var(--muted);margin-top:8px">Open to project inquiries and full-time opportunities.</div>
+          <a href="mailto:rafi@example.com" class="primary-btn" style="margin-top:12px;display:block;text-align:center">Let's talk</a>
+        </div>
+      </aside>
+    </main>
+
+    <footer id="contact">
+      © <span id="year"></span> Ahmad Rafi Rizqullah — Data Analyst · <span style="color:var(--muted)">Built with care</span>
+    </footer>
+  </div>
+
+  <!-- Modal for Dashboard Demo -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <header>
+        <strong>Dashboard demo — Monthly metrics</strong>
+        <button class="close" id="closeModal" aria-label="Close window">✕</button>
+      </header>
+      <div style="display:grid;grid-template-columns:1fr 260px;gap:14px;align-items:start">
+        <div>
+          <canvas id="demoChart" width="640" height="320" style="width:100%;height:300px;border-radius:8px"></canvas>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="card" style="padding:12px">
+            <div style="font-size:0.9rem;color:var(--muted)">Total users (M)</div>
+            <div style="font-weight:700;font-size:1.4rem">1.24</div>
+          </div>
+          <div class="card" style="padding:12px">
+            <div style="font-size:0.9rem;color:var(--muted)">Active projects</div>
+            <div style="font-weight:700;font-size:1.4rem">14</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== Utilities & DOM ready
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
+
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (persist to localStorage)
+    const themeToggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('site-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if(currentTheme === 'dark') document.documentElement.setAttribute('data-theme','dark');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if(isDark){
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('site-theme','light');
+      } else {
+        document.documentElement.setAttribute('data-theme','dark');
+        localStorage.setItem('site-theme','dark');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const target = a.getAttribute('href');
+        if(target === '#') return;
+        const el = document.querySelector(target);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.12});
+    revealEls.forEach(el => observer.observe(el));
+
+    // Modal open/close
+    const backdrop = document.getElementById('modalBackdrop');
+    const openDemoBtns = [document.getElementById('openDemo'), document.getElementById('openDemo2')];
+    openDemoBtns.forEach(btn => btn && btn.addEventListener('click', openModal));
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
+
+    function openModal(){
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden','false');
+      // draw demo chart (update to reflect real data)
+      drawDemoChart();
+    }
+    function closeModal(){
+      backdrop.style.display = 'none';
+      backdrop.setAttribute('aria-hidden','true');
+    }
+
+    // ===== Simple lightweight chart drawing (no libs) =====
+    function drawLineOnCanvas(canvas, data, options = {}){
+      const ctx = canvas.getContext('2d');
+      const DPR = window.devicePixelRatio || 1;
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      canvas.width = w * DPR;
+      canvas.height = h * DPR;
+      ctx.scale(DPR, DPR);
+      ctx.clearRect(0,0,w,h);
+
+      // padding
+      const pad = 28;
+      const innerW = w - pad*2;
+      const innerH = h - pad*2;
+
+      // compute min/max
+      const values = data.map(d => d.value);
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const range = max - min || 1;
+
+      // axis points
+      const points = data.map((d,i)=>{
+        const x = pad + (i/(data.length-1)) * innerW;
+        const y = pad + innerH - ((d.value - min) / range) * innerH;
+        return {x,y, label: d.label, v: d.value};
+      });
+
+      // draw grid lines
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--glass') || '#e6eef9';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for(let i=0;i<=4;i++){
+        const yy = pad + (i/4) * innerH;
+        ctx.moveTo(pad, yy);
+        ctx.lineTo(pad + innerW, yy);
+      }
+      ctx.stroke();
+
+      // draw area fill
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      points.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(points[points.length-1].x, pad + innerH);
+      ctx.lineTo(points[0].x, pad + innerH);
+      ctx.closePath();
+      const g = ctx.createLinearGradient(0,pad,0,pad+innerH);
+      g.addColorStop(0, 'rgba(14,165,233,0.14)');
+      g.addColorStop(1, 'rgba(14,165,233,0.02)');
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      // draw line
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for(let i=1;i<points.length;i++){
+        const p = points[i-1], q = points[i];
+        // smooth bezier curve
+        const cx = (p.x + q.x)/2;
+        ctx.bezierCurveTo(cx, p.y, cx, q.y, q.x, q.y);
+      }
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#0ea5e9';
+      ctx.lineWidth = 2.6;
+      ctx.stroke();
+
+      // draw points
+      points.forEach(p=>{
+        ctx.beginPath();
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#0ea5e9';
+        ctx.lineWidth = 2;
+        ctx.arc(p.x, p.y, 4.2, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+      });
+
+      // draw labels (x)
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted') || '#6b7280';
+      ctx.font = '12px Inter, system-ui, Arial';
+      ctx.textAlign = 'center';
+      points.forEach(p=>{
+        ctx.fillText(p.label, p.x, pad + innerH + 16);
+      });
+    }
+
+    // sample data for charts
+    const sampleSeries = [
+      {label:'Jan', value: 120},
+      {label:'Feb', value: 210},
+      {label:'Mar', value: 150},
+      {label:'Apr', value: 300},
+      {label:'May', value: 260},
+      {label:'Jun', value: 330}
+    ];
+
+    // mini chart (right column)
+    const miniCanvas = document.getElementById('miniChart');
+    function drawMini(){
+      drawLineOnCanvas(miniCanvas, sampleSeries);
+    }
+    window.addEventListener('load', drawMini);
+    window.addEventListener('resize', () => {
+      // redraw charts on resize
+      drawMini();
+      if(document.getElementById('demoChart')) drawDemoChart();
+    });
+
+    // demo chart (modal)
+    function drawDemoChart(){
+      const demoCanvas = document.getElementById('demoChart');
+      if(!demoCanvas) return;
+      const dataDemo = [
+        {label:'Jan', value: 320},
+        {label:'Feb', value: 410},
+        {label:'Mar', value: 370},
+        {label:'Apr', value: 520},
+        {label:'May', value: 470},
+        {label:'Jun', value: 590},
+        {label:'Jul', value: 640},
+        {label:'Aug', value: 600},
+        {label:'Sep', value: 680},
+        {label:'Oct', value: 720},
+        {label:'Nov', value: 760},
+        {label:'Dec', value: 810}
+      ];
+      drawLineOnCanvas(demoCanvas, dataDemo);
+    }
+
+    // Accessibility: escape to close modal
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && backdrop.style.display === 'flex') closeModal();
+    });
+
+    // Initial simple animation for header elements
+    document.querySelectorAll('.name, .role').forEach((el,i)=>{
+      el.style.opacity = 0;
+      setTimeout(()=>{ el.style.transition = 'opacity 520ms ease'; el.style.opacity = 1; }, 120 + i*80);
+    });
+  </script>
+</body>
+</html>
