@@ -1,0 +1,9 @@
+.icon-btn {
+  @apply flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition;
+}
+
+.icon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
